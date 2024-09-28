@@ -72,6 +72,7 @@ function startSpam(text, ms) {
   
   // Listener for the "stop" button
   document.getElementById('stop').addEventListener('click', () => {
+    console.log('Stop button clicked');
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       chrome.scripting.executeScript({
         target: { tabId: tabs[0].id },
