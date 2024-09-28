@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "ChatVisionZ Spammer",
+    "version": "1.0",
+    "description": "Text Spam on ChatVisionZ every x ms",
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "permissions": [
+      "activeTab",
+      "scripting"
+    ],
+    "host_permissions": [
+      "https://www.chatvisionz.com/*"
+    ]
+  }
+  
