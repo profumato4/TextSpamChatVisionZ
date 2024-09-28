@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+
+  h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  #stop:hover {
+    background-color: #dd1111;
+  }
+
+  button:hover {
+    background-color: #4cae4c;
+  }
+
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  div{
+    width: 300px;
+    height: 80px;
+    font-size: 20px;
+  }
+
+  input {
+    font-size: 20px;
+  }
+
+button {
+    background-color: #fff;
+    border: 1px solid #010608;
+    transition: 0.5s;
+    font-size: 20px;
+    border-radius: 0.4em;
+    margin-right: 20px;
+  }
+  
+  button p {
+    position: absolute;
+    top: 0.4em;
+    left: 1.2em;
+    margin: 0;
+    padding: 0;
+    transition: .5s;
+    color: #0077b5;
+  }
+  
+  button svg {
+    position: absolute;
+    top: 0.45em;
+    right: 0.5em;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    transition: 0.5s;
+    height: 1em;
+    fill: #fff
+  }
+  
+  button:hover p {
+    left: 0.6em;
+    color: #fff
+  }
+  
+  button:hover svg {
+    opacity: 1;
+  }
+  
+  
