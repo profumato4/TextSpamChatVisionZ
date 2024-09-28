@@ -22,16 +22,29 @@ document.getElementById('start').addEventListener('click', () => {
   
   function startSpam(text, ms) {
     window.spamInterval = setInterval(() => {
-      // find the input element and send the text
-      const input = document.querySelector('input[type="text"]');  
-      const sendButton = document.querySelector('button');  
+        // find the input element and send the text
+        const input = document.querySelector('input[type="text"]');  
+        const form = document.querySelector('form');  
+        const sendButton = document.querySelector('button');  
   
-      if (input && sendButton) {
-        input.value = text;
-        sendButton.click();
-      }
+        if (input) {
+            input.value = text;
+  
+    
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+  
+            if (sendButton) {
+                sendButton.click();
+            }
+  
+            if (form) {
+                form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+            }
+    }
     }, ms);
-  }
+}
+  
   
   function stopSpam() {
     clearInterval(window.spamInterval);
