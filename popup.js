@@ -1,38 +1,51 @@
 // Function to start the spam
 function startSpam(text, ms) {
-    window.spamInterval = setInterval(() => {
-      const input = document.querySelector('input[type="text"]');  
-      const form = document.querySelector('form'); 
-      const sendButton = document.querySelector('button');  
-      const nextButton = document.querySelector('button.next');
-  
-      if (input) {
-        input.value = text;
-  
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-        input.dispatchEvent(new Event('change', { bubbles: true }));
-  
-        if (sendButton) {
-          sendButton.click();
-        }
-  
-        if (form) {
-          form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-        }
+  function pollForNextButton(timeout, interval) {
+      const startTime = Date.now();
 
-        setTimeout(() =>{
-          if(nextButton){
-            nextButton.click();
-            console.log('Chat skipped!');
-          }else{
-            console.log('Skip button not found');
+      function searchForButton() {
+          const nextButton = document.querySelector('button.next');
+          
+          if (nextButton) {
+              nextButton.click();
+              console.log('Chat skipped!');
+          } else if (Date.now() - startTime < timeout) {
+              console.log('Skip button not found, retrying...');
+              setTimeout(searchForButton, interval);
+          } else {
+              console.log('Skip button not found, stopped trying');
           }
-        }, ms+1500);
-
       }
-    }, ms);
+
+      searchForButton();  
   }
-  
+
+  window.spamInterval = setInterval(() => {
+    const input = document.querySelector('input[type="text"]');  
+    const form = document.querySelector('form'); 
+    const sendButton = document.querySelector('button');  
+
+    if (input) {
+      input.value = text;
+
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+
+      if (sendButton) {
+        sendButton.click();
+      }
+
+      if (form) {
+        form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      }
+
+      setTimeout(() => {
+        pollForNextButton(5000, 500);  
+      }, 5000); 
+    }
+  }, ms);
+}
+
   // Function to stop the spam
   function stopSpam() {
     clearInterval(window.spamInterval);
