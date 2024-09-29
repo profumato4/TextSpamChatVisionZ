@@ -1,25 +1,5 @@
 // Function to start the spam
 function startSpam(text, ms) {
-  function pollForNextButton(timeout, interval) {
-      const startTime = Date.now();
-
-      function searchForButton() {
-          const nextButton = document.querySelector('button.next');
-          
-          if (nextButton) {
-              nextButton.click();
-              console.log('Chat skipped!');
-          } else if (Date.now() - startTime < timeout) {
-              console.log('Skip button not found, retrying...');
-              setTimeout(searchForButton, interval);
-          } else {
-              console.log('Skip button not found, stopped trying');
-          }
-      }
-
-      searchForButton();  
-  }
-
   window.spamInterval = setInterval(() => {
     const input = document.querySelector('input[type="text"]');  
     const form = document.querySelector('form'); 
@@ -38,75 +18,70 @@ function startSpam(text, ms) {
       if (form) {
         form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
       }
-
-      setTimeout(() => {
-        pollForNextButton(5000, 500);  
-      }, 5000); 
     }
   }, ms);
 }
 
-  // Function to stop the spam
-  function stopSpam() {
-    clearInterval(window.spamInterval);
+// Function to stop the spam
+function stopSpam() {
+  clearInterval(window.spamInterval);
+}
+
+// Function to save data to Chrome's local storage
+function saveData(text, ms) {
+  if (text && ms) {
+    chrome.storage.local.set({ spamText: text, spamMs: ms }, () => {
+      console.log('Data saved:', text, ms);
+    });
+  } else {
+    console.log('Data not valid, data not saved');
   }
-  
-  // Function to save data to Chrome's local storage
-  function saveData(text, ms) {
-    if (text && ms) {
-      chrome.storage.local.set({ spamText: text, spamMs: ms }, () => {
-        console.log('Data saved:', text, ms);
-      });
-    } else {
-      console.log('Data not valid, data not saved');
+}
+
+
+// Function to load data from Chrome's local storage
+function loadData() {
+  chrome.storage.local.get(['spamText', 'spamMs'], (data) => {
+    console.log('Data loaded:', data);
+    if (data.spamText) {
+      document.getElementById('text').value = data.spamText;
     }
-  }
-  
-  
-  // Function to load data from Chrome's local storage
-  function loadData() {
-    chrome.storage.local.get(['spamText', 'spamMs'], (data) => {
-      console.log('Data loaded:', data);
-      if (data.spamText) {
-        document.getElementById('text').value = data.spamText;
-      }
-      if (data.spamMs) {
-        document.getElementById('ms').value = data.spamMs;
-      }
-    });
-  }
-  
-  // Listener for the "start" button
-  document.getElementById('start').addEventListener('click', () => {
-    const text = document.getElementById('text').value;
-    const ms = document.getElementById('ms').value;
-  
-    // save data
-    saveData(text, ms);
-  
-    // start the spam script
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.scripting.executeScript({
-        target: { tabId: tabs[0].id },
-        func: startSpam,
-        args: [text, ms]
-      });
+    if (data.spamMs) {
+      document.getElementById('ms').value = data.spamMs;
+    }
+  });
+}
+
+// Listener for the "start" button
+document.getElementById('start').addEventListener('click', () => {
+  const text = document.getElementById('text').value;
+  const ms = document.getElementById('ms').value;
+
+  // save data
+  saveData(text, ms);
+
+  // start the spam script
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.scripting.executeScript({
+      target: { tabId: tabs[0].id },
+      func: startSpam,
+      args: [text, ms]
     });
   });
-  
-  // Listener for the "stop" button
-  document.getElementById('stop').addEventListener('click', () => {
-    console.log('Stop button clicked');
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.scripting.executeScript({
-        target: { tabId: tabs[0].id },
-        func: stopSpam
-      });
+});
+
+// Listener for the "stop" button
+document.getElementById('stop').addEventListener('click', () => {
+  console.log('Stop button clicked');
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.scripting.executeScript({
+      target: { tabId: tabs[0].id },
+      func: stopSpam
     });
   });
-  
-  // load the data when the extension is opened
-  document.addEventListener('DOMContentLoaded', () => {
-    loadData();  
-  });
-  
+});
+
+// load the data when the extension is opened
+document.addEventListener('DOMContentLoaded', () => {
+  loadData();  
+});
