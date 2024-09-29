@@ -4,6 +4,7 @@ function startSpam(text, ms) {
       const input = document.querySelector('input[type="text"]');  
       const form = document.querySelector('form'); 
       const sendButton = document.querySelector('button');  
+      const nextButton = document.querySelector('button.next');
   
       if (input) {
         input.value = text;
@@ -18,6 +19,16 @@ function startSpam(text, ms) {
         if (form) {
           form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
         }
+
+        setTimeout(() =>{
+          if(nextButton){
+            nextButton.click();
+            console.log('Chat skipped!');
+          }else{
+            console.log('Skip button not found');
+          }
+        }, ms+1500);
+
       }
     }, ms);
   }
