@@ -6,6 +6,9 @@
 A simple Chrome extension to spam on https://www.chatvisionz.com/.
 This is the first Version of the extension, in this Version you can type a message and spam it how often you want. 
 
+https://github.com/user-attachments/assets/09fdbcae-0ccb-4368-8dc8-e6301fed61aa
+
+
 # ⚠️ NOTE ⚠️
 
 This application is for private or educational purposes only. I do not accept responsibility for banned accounts or penalties of any kind caused by the use of this bot. I would like to point out that using a bot violates the Terms and Conditions of chatvisionz. By using the bot, you automatically accept that you yourself are criminally responsible for yourself and you are aware that it violates the guidelines.
