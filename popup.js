@@ -1,11 +1,23 @@
 // Function to start the spam
 function startSpam(text, ms) {
+  let messageSent = false; 
+
   window.spamInterval = setInterval(() => {
     const input = document.querySelector('input[type="text"]');  
     const form = document.querySelector('form'); 
     const sendButton = document.querySelector('button');  
+    
+    // Function to skip the chat
+    function skip() {
+      let skipButton = document.getElementById('next');
+      if (skipButton) {
+        skipButton.click();
+        console.log("Chat Skipped");
+        messageSent = false; 
+      }
+    }
 
-    if (input) {
+    if (input && !messageSent) { 
       input.value = text;
 
       input.dispatchEvent(new Event('input', { bubbles: true }));
@@ -13,14 +25,21 @@ function startSpam(text, ms) {
 
       if (sendButton) {
         sendButton.click();
+        messageSent = true; 
+        console.log("Message Sent");
       }
 
       if (form) {
         form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
       }
+
+      setTimeout(skip, 5000); 
     }
   }, ms);
 }
+
+
+
 
 // Function to stop the spam
 function stopSpam() {
