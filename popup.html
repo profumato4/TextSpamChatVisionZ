@@ -3,21 +3,45 @@
 <head>
   <title>ChatVisionz Spammer</title>
   <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="tab.css">
 </head>
 <body>
-  <div>
+
+  <div class="tab">
+    <button id="spamv1" class="tablinks" >Spam V1</button>
+    <button id="spamv2" class="tablinks" >Spam V2</button>
+  </div>
+
+  <div id="v1" class="tabcontent">
+    <br><br>
     <label for="text">Insert the text:</label>
     <br>
     <input type="text" id="text" />
-  </div>
-  <div>
+    <br>
+    <br>
     <label for="ms">ms:</label>
     <br>
     <input type="number" id="ms" />
+    <br>
+    <br>
+    <button id="startv1">Start spam</button>
+    <button id="stopv1">Stop spam</button>
   </div>
-  <button id="start">Start spam</button>
-  <button id="stop">Stop spam</button>
+ 
+  <div id="v2" class="tabcontent">
+    <br><br>
+    <label for="text"> Insert the text: </label>
+    <br>
+    <input type="text" />
+    <br>
+    <br>
+    <button id="startv2"> Start Spam</button> 
+    <button id="stopv2"> Stop Spam</button>
+  </div>
 
-  <script src="popup.js"></script>
+
+  <script src="tab.js"></script>
+  <script src="spamv1.js"></script>
+  <script src="spamv2.js"></script>
 </body>
 </html>
