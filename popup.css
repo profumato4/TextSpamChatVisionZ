@@ -12,7 +12,7 @@ body {
     background-color: #dd1111;
   }
 
-  button:hover {
+  #start:hover {
     background-color: #4cae4c;
   }
 
@@ -22,8 +22,9 @@ body {
   }
 
   div{
-    width: 300px;
-    height: 80px;
+    text-align: center;
+    width: 400px;
+    height: 100px;
     font-size: 20px;
   }
 
@@ -33,34 +34,18 @@ body {
 
 
 button {
-    background-color: #fff;
-    border: 1px solid #010608;
-    transition: 0.5s;
-    font-size: 20px;
-    border-radius: 0.4em;
-    margin-right: 20px;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  text-align: center;
   }
   
-  button p {
-    position: absolute;
-    top: 0.4em;
-    left: 1.2em;
-    margin: 0;
-    padding: 0;
-    transition: .5s;
-    color: #0077b5;
-  }
-  
-  button svg {
-    position: absolute;
-    top: 0.45em;
-    right: 0.5em;
-    margin: 0;
-    padding: 0;
-    opacity: 0;
-    transition: 0.5s;
-    height: 1em;
-    fill: #fff
+  button.active {
+    background-color: #ccc;
   }
   
   button:hover p {
